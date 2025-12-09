@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { getJoke, getQuote } from "./api/api";
 import "./App.css";
 import Button from "./components/Button";
@@ -25,6 +24,7 @@ function App() {
       console.log(e);
       setContent({ line1: "Something went wrong", line2: "" });
     } finally {
+      console.log(loading);
       setLoading(false);
     }
   }, [option]);
