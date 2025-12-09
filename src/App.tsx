@@ -4,25 +4,26 @@ import "./App.css";
 import Button from "./components/Button";
 import Card from "./components/Card";
 import { useState, useEffect, useCallback } from "react";
+import type { Content } from "./types/ButtonProps";
 
 function App() {
   const [option, setOption] = useState("quote");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState<Content>({ line1: "", line2: "" });
   const [loading, setLoading] = useState(true);
 
   const handleApi = useCallback(async () => {
     setLoading(true);
     try {
+      let result;
       if (option === "joke") {
-        const joke = await getJoke();
-        setContent(joke);
+        result = await getJoke();
       } else {
-        const quote = await getQuote();
-        setContent(quote);
+        result = await getQuote();
       }
+      setContent(result);
     } catch (e) {
       console.log(e);
-      setContent("Something went wrong");
+      setContent({ line1: "Something went wrong", line2: "" });
     } finally {
       setLoading(false);
     }
@@ -47,7 +48,7 @@ function App() {
         </Button>
       </div>
       <div>
-        <Card>{content}</Card>
+        <Card content={content} />
       </div>
       <Button onClick={() => handleApi()} id="refresh">
         New {option}

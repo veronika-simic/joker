@@ -3,3 +3,8 @@ export interface ButtonProps {
   onClick: React.MouseEventHandler<HTMLElement>;
   id: string;
 }
+
+export type Content = {
+  line1: string;
+  line2: string;
+};
